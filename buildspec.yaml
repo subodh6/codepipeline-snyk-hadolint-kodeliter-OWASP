@@ -15,7 +15,7 @@ phases:
       - curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
       - chmod +x get_helm.sh
       - ./get_helm.sh
-      Hadolint installation 
+     # Hadolint installation 
       -  echo "Downloading the Hadolint tool..."
       -  wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
       -  sudo cp hadolint /usr/local/bin/hadolint
