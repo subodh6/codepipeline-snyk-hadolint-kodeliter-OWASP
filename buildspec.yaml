@@ -33,6 +33,7 @@ phases:
     
   pre_build:
     commands:
+      - echo $DOCKER_LOGIN_TOKEN | docker login --username ankitanagarale  --password-stdin
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 581355710136.dkr.ecr.us-east-2.amazonaws.com
       - IMAGE_REPO_NAME=581355710136.dkr.ecr.us-east-2.amazonaws.com/canary-ecr
