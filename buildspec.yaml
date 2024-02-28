@@ -15,12 +15,12 @@ phases:
       - curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
       - chmod +x get_helm.sh
       - ./get_helm.sh
-      #Hadolint installation 
-      # -  echo "Downloading the Hadolint tool..."
-      # -  wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
-      # -  sudo cp hadolint /usr/local/bin/hadolint
-     # -  sudo chmod +x /usr/local/bin/hadolint
-      #-  hadolint --version
+      Hadolint installation 
+      -  echo "Downloading the Hadolint tool..."
+      -  wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
+      -  sudo cp hadolint /usr/local/bin/hadolint
+      -  sudo chmod +x /usr/local/bin/hadolint
+      -  hadolint --version
 
       # eksctl installation 
       - ARCH=amd64
@@ -39,17 +39,16 @@ phases:
       - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 581355710136.dkr.ecr.us-east-2.amazonaws.com
       - IMAGE_REPO_NAME=581355710136.dkr.ecr.us-east-2.amazonaws.com/canary-ecr
       - IMAGE_TAG=v1.0.0.RELEASE
-      - echo "DOCKER FILE LINT STATGE"
-      - echo "PRE_BUILD Phase Will fail if Dockerfile is not secure or linted"
-      - echo Using Hadolint for Dockerfile linting
-      - docker pull hadolint/hadolint:v1.16.2
-      -  docker run --rm -i -v ${PWD}/.hadolint.yml:/.hadolint.yaml hadolint/hadolint:v1.16.2 hadolint -f json - < ./Dockerfile > hadolint_output.json 2>&1
+     
 
       
 
   build:
     commands:
       - echo Build started on `date`
+      - echo "Build started on $(date)"
+      - echo "Validating the Dockerfile using Hadolint tool..."
+      - hadolint --config hadolint.yml Dockerfile 2>&1 | tee hadolint.log
     # building docker image   
       - echo Building the Docker image...          
       - docker build --tag $IMAGE_REPO_NAME:$IMAGE_TAG .
@@ -78,5 +77,5 @@ phases:
       
 artifacts:
   files:
-    - hadolint_output.json
+    - hadolint.log
   
