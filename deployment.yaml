@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nodesy-container
-        image: 581355710136.dkr.ecr.us-east-2.amazonaws.com/eks-repo:v1.0.0.RELEASE
+        image: 581355710136.dkr.ecr.us-east-2.amazonaws.com/canary-ecr:v1.0.0.RELEASE
         ports:
         - containerPort: 3000
         
