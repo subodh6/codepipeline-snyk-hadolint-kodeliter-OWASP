@@ -83,4 +83,5 @@ artifacts:
   files:
     - hadolint.log
     - kube-linter.log
+    - zap_report.html
   
