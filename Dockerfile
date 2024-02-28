@@ -10,8 +10,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install Dependencies
-
-RUN npm install
+     RUN npm install
 
 # Copy source code to the container work directory
 
