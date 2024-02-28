@@ -22,7 +22,7 @@ phases:
       -  sudo chmod +x /usr/local/bin/hadolint
       -  hadolint --version
       #kubelinetr
-       - wget https://github.com/stackrox/kube-linter/releases/download/0.2.5/kube-linter-linux.tar.gz
+      - wget https://github.com/stackrox/kube-linter/releases/download/0.2.5/kube-linter-linux.tar.gz
       - tar -xvf kube-linter-linux.tar.gz
       - mv kube-linter /usr/local/bin/
 
