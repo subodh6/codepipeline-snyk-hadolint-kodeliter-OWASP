@@ -44,7 +44,8 @@ phases:
     commands:
     # validating Dockerfile using Hadolint 
       - echo "Validating the Dockerfile using Hadolint tool..."
-      - hadolint --config hadolint.yml Dockerfile 2>&1 | tee hadolint.log
+     # - hadolint --config hadolint.yml Dockerfile 2>&1 | tee hadolint.log
+      - docker run --rm -i -v ${PWD}/.hadolint.yml:/.hadolint.yaml hadolint/hadolint:v1.16.2 hadolint -f json - < ./Dockerfile
       - echo Build started on `date`
     # building docker image   
       - echo Building the Docker image...          
