@@ -33,21 +33,21 @@ phases:
     
   pre_build:
     commands:
+      
       - echo $DOCKER_LOGIN_TOKEN | docker login --username ankitanagarale  --password-stdin
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 581355710136.dkr.ecr.us-east-2.amazonaws.com
       - IMAGE_REPO_NAME=581355710136.dkr.ecr.us-east-2.amazonaws.com/canary-ecr
       - IMAGE_TAG=v1.0.0.RELEASE
+            - echo "DOCKER FILE LINT STATGE"
+      - echo "PRE_BUILD Phase Will fail if Dockerfile is not secure or linted"
+      - echo Using Hadolint for Dockerfile linting
+      - docker pull hadolint/hadolint:v1.16.2
+      - docker run --rm -i -v ${PWD}/.hadolint.yml:/.hadolint.yaml hadolint/hadolint:v1.16.2 hadolint -f json - < ./Dockerfile
       
 
   build:
     commands:
-    # validating Dockerfile using Hadolint 
-      - echo "Validating the Dockerfile using Hadolint tool..."
-     # - hadolint --config hadolint.yml Dockerfile 2>&1 | tee hadolint.log
-      - echo Using Hadolint for Dockerfile linting
-      - docker pull hadolint/hadolint:v1.16.2
-      - docker run --rm -i -v ${PWD}/.hadolint.yml:/.hadolint.yaml hadolint/hadolint:v1.16.2 hadolint -f json - < ./Dockerfile
       - echo Build started on `date`
     # building docker image   
       - echo Building the Docker image...          
