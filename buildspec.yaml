@@ -26,14 +26,9 @@ phases:
       - tar -xvf kube-linter-linux.tar.gz
       - mv kube-linter /usr/local/bin/
 
-      # eksctl installation 
-      - ARCH=amd64
-      - PLATFORM=$(uname -s)_$ARCH
-      - curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
-      - curl -sL "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_checksums.txt" | grep $PLATFORM | sha256sum --check
-      - tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
-      - sudo mv /tmp/eksctl /usr/local/bin
-      - eksctl version
+       # - yum install java-1.8.0-openjdk-devel
+      - wget https://github.com/zaproxy/zaproxy/releases/download/v2.14.0/ZAP_2.14.0_Linux.tar.gz
+      - tar -xvf ZAP_2.14.0_Linux.tar.gz
     
   pre_build:
     commands:
@@ -65,20 +60,20 @@ phases:
       - echo Push the latest image to cluster
       - kube-linter checks list
       - kube-linter lint deployment.yaml 2>&1 | tee kube-linter.log
-      # - echo "Setting Environment Variables related to AWS CLI for Kube Config Setup"          
-      # - CREDENTIALS="$(aws sts assume-role --role-arn $EKS_KUBECTL_ROLE_ARN --role-session-name codebuild-kubectl --duration-seconds 900)"
-      # - export AWS_ACCESS_KEY_ID="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
-      # - export AWS_SECRET_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
-      # - export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
-      # - export AWS_EXPIRATION=$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')
-      # - echo "Update Kube Config"      
-      # - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
-      # - kubectl apply -f deployment.yaml
-      # - kubectl get all 
-      # - kubectl get pods
-      # - kubectl get svc
-      # - sleep 60 
-      # - kubectl get all 
+      - echo "Setting Environment Variables related to AWS CLI for Kube Config Setup"          
+      - CREDENTIALS="$(aws sts assume-role --role-arn $EKS_KUBECTL_ROLE_ARN --role-session-name codebuild-kubectl --duration-seconds 900)"
+      - export AWS_ACCESS_KEY_ID="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
+      - export AWS_SECRET_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
+      - export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
+      - export AWS_EXPIRATION=$(echo ${CREDENTIALS} | jq -r '.Credentials.Expiration')
+      - echo "Update Kube Config"      
+      - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
+      - kubectl apply -f deployment.yaml
+      - kubectl get all 
+      - kubectl get pods
+      - kubectl get svc
+      - sleep 60 
+      - kubectl get all 
 
       
 artifacts:
