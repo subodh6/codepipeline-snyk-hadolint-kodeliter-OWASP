@@ -75,7 +75,7 @@ phases:
       # - kubectl get all 
 
       
-artifacts:
-  files:
-    - hadolint.log
+# artifacts:
+#   files:
+#     - hadolint.log
   
