@@ -16,11 +16,11 @@ phases:
       - chmod +x get_helm.sh
       - ./get_helm.sh
       #Hadolint installation 
-      -  echo "Downloading the Hadolint tool..."
-      -  wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
-      -  sudo cp hadolint /usr/local/bin/hadolint
-      -  sudo chmod +x /usr/local/bin/hadolint
-      -  hadolint --version
+      # -  echo "Downloading the Hadolint tool..."
+      # -  wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
+      # -  sudo cp hadolint /usr/local/bin/hadolint
+     # -  sudo chmod +x /usr/local/bin/hadolint
+      #-  hadolint --version
 
       # eksctl installation 
       - ARCH=amd64
@@ -45,6 +45,8 @@ phases:
     # validating Dockerfile using Hadolint 
       - echo "Validating the Dockerfile using Hadolint tool..."
      # - hadolint --config hadolint.yml Dockerfile 2>&1 | tee hadolint.log
+      - echo Using Hadolint for Dockerfile linting
+      - docker pull hadolint/hadolint:v1.16.2
       - docker run --rm -i -v ${PWD}/.hadolint.yml:/.hadolint.yaml hadolint/hadolint:v1.16.2 hadolint -f json - < ./Dockerfile
       - echo Build started on `date`
     # building docker image   
