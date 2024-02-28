@@ -21,6 +21,10 @@ phases:
       -  sudo cp hadolint /usr/local/bin/hadolint
       -  sudo chmod +x /usr/local/bin/hadolint
       -  hadolint --version
+      #kubelinetr
+       - wget https://github.com/stackrox/kube-linter/releases/download/0.2.5/kube-linter-linux.tar.gz
+      - tar -xvf kube-linter-linux.tar.gz
+      - mv kube-linter /usr/local/bin/
 
       # eksctl installation 
       - ARCH=amd64
@@ -59,6 +63,8 @@ phases:
       - echo Pushing the Docker image...
       - docker push $IMAGE_REPO_NAME:$IMAGE_TAG
       - echo Push the latest image to cluster
+      - kube-linter checks list
+      - kube-linter lint deployment.yaml 2>&1 | tee kube-linter.log
       # - echo "Setting Environment Variables related to AWS CLI for Kube Config Setup"          
       # - CREDENTIALS="$(aws sts assume-role --role-arn $EKS_KUBECTL_ROLE_ARN --role-session-name codebuild-kubectl --duration-seconds 900)"
       # - export AWS_ACCESS_KEY_ID="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
@@ -78,4 +84,5 @@ phases:
 artifacts:
   files:
     - hadolint.log
+    - kube-linter.log
   
