@@ -36,7 +36,7 @@ phases:
       - echo $DOCKER_LOGIN_TOKEN | docker login --username ankitanagarale  --password-stdin
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 581355710136.dkr.ecr.us-east-2.amazonaws.com
-      - IMAGE_REPO_NAME=581355710136.dkr.ecr.us-east-2.amazonaws.com/canary-ecr
+      - IMAGE_REPO_NAME=581355710136.dkr.ecr.us-east-2.amazonaws.com/security-ecr
       - IMAGE_TAG=v1.0.0.RELEASE
      
 
@@ -47,6 +47,7 @@ phases:
       - echo Build started on `date`
       - echo "Build started on $(date)"
       - echo "Validating the Dockerfile using Hadolint tool..."
+    #  Docker file validation using Hadolint 
       - hadolint --config hadolint.yml Dockerfile 2>&1 | tee hadolint.log
     # building docker image   
       - echo Building the Docker image...          
