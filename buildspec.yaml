@@ -35,8 +35,8 @@ phases:
       
       - echo $DOCKER_LOGIN_TOKEN | docker login --username ankitanagarale  --password-stdin
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 581355710136.dkr.ecr.us-east-2.amazonaws.com
-      - IMAGE_REPO_NAME=581355710136.dkr.ecr.us-east-2.amazonaws.com/security-ecr
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 891377353125.dkr.ecr.ap-south-1.amazonaws.com
+      - IMAGE_REPO_NAME=891377353125.dkr.ecr.ap-south-1.amazonaws.com/security-ecr
       - IMAGE_TAG=v1.0.0.RELEASE
      
 
