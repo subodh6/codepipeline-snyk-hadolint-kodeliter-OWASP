@@ -12,9 +12,9 @@ phases:
       - echo 'Check kubectl version'
       - kubectl version --short --client
       # Install Helm
-      - curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-      - chmod +x get_helm.sh
-      - ./get_helm.sh
+      #- curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+      #- chmod +x get_helm.sh
+      #- ./get_helm.sh
      # Hadolint installation 
       -  echo "Downloading the Hadolint tool..."
       -  wget -O hadolint https://github.com/hadolint/hadolint/releases/download/v1.16.3/hadolint-Linux-x86_64
