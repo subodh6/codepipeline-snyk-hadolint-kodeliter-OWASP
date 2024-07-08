@@ -79,7 +79,7 @@ phases:
       # - echo $LB_ADDRESS
       - LB_ADDRESS=$(kubectl get svc nodesy-service -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
       - echo $LB_ADDRESS
-      - ./ZAP_2.14.0/zap.sh -cmd -quickurl http://$LB_ADDRESS/ -quickprogress -quickout ../zap_report.html
+      - ./ZAP_2.14.0/zap.sh -cmd -quickurl http://LB_ADDRESS/ -quickprogress -quickout ../zap_report.html
 
       
 artifacts:
